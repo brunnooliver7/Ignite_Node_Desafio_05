@@ -92,6 +92,93 @@
             }
           }
         }
+      },
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "List all users",
+        "description": "Only `admin` is allowed to access.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "user_id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "admin": {
+                        "type": "boolean"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "updated_at": {
+                        "type": "string"
+                      }
+                    },
+                    "example": [
+                      {
+                        "admin": true,
+                        "id": "c5c739c0-4576-47a4-82f5-8b314d2eba21",
+                        "name": "Rocketseat",
+                        "email": "oi@rocketseat.com.br",
+                        "created_at": "2021-03-21T20:32:40.759Z",
+                        "updated_at": "2021-03-21T20:32:40.759Z"
+                      },
+                      {
+                        "admin": false,
+                        "id": "d32e9e4e-43cd-4f64-a393-4f0158c9e348",
+                        "name": "Vinícius Fraga",
+                        "email": "vinicius.fraga@rocketseat.com.br",
+                        "created_at": "2021-03-10T23:14:43.081Z",
+                        "updated_at": "2021-03-10T23:14:43.081Z"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User not allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": "string"
+                  },
+                  "example": {
+                    "error": "Only admins can access"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
